@@ -1,9 +1,10 @@
 import tkinter as tk
+from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from question_manager import QuestionManager
 
-#문제생성이랑 문제판단 함수 생성하는 클래스, 이미지 크기 조정 포함
+# 문제생성이랑 문제판단 함수 생성하는 클래스, 이미지 크기 조정 포함
 class Quiz_Character:
     def __init__(self, character, questions, images, answers):
         self.character = character
@@ -14,6 +15,8 @@ class Quiz_Character:
         self.answers = answers
         self.current_question_index = 0
 
+        # 이미지 크기 조정 및 초기화
+        self.image = self.resize_image(self.images[self.current_question_index], 400, 300)
         self.image_label = tk.Label(character, image=self.image)
         self.image_label.pack(pady=10)
 
@@ -40,10 +43,11 @@ class Quiz_Character:
                 self.answer_entry, 
                 self.question_label
             )
-            #이미지 크기 조정
+            # 이미지 크기 조정 및 업데이트
             self.image = self.resize_image(self.images[self.current_question_index], 400, 300)
             self.image_label.config(image=self.image)
-            self.answer_entry.delete(0, 'end') #다음문제로 넘어가면 입력이 초기화
+            self.image_label.image = self.image  # 필요한 경우 이미지 참조 유지
+            self.answer_entry.delete(0, 'end')  # 다음 문제로 넘어가면 입력 초기화
 
     def resize_image(self, path, width, height):
         image = Image.open(path)
