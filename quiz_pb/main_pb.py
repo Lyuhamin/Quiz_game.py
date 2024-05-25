@@ -3,6 +3,7 @@ from tkinter import messagebox
 from PIL import Image, ImageTk
 import os
 from timer import Timer
+import random
 
 
 class QuizGame:
@@ -17,6 +18,7 @@ class QuizGame:
             ("호랑이도 제말하면 온다", "호랑이도 제말하면 온다.jpeg"),
             ("개천에서 용난다", "개천에서 용난다.jpeg"),
         ]
+        random.shuffle(self.proverbs)  # 문제를 랜덤으로 섞기
         self.current_index = 0  # 현재문제의 index를 저장
 
         self.image_label = tk.Label(root)
