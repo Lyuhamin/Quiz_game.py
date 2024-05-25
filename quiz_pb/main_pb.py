@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import os
 from timer import Timer
 import random
+from score import Score
 
 
 class QuizGame:
@@ -39,6 +40,7 @@ class QuizGame:
         self.check_button.pack(pady=10)
 
         self.timer = Timer(root, self.show_next_question)
+        self.score = Score()  # 점수 시스템 초기화
         self.show_image()  # 현재 index에 해당하는 속담 표시
         self.timer.start_timer()
 
@@ -54,7 +56,10 @@ class QuizGame:
 
             self.current_proverb = proverb  # 현재 속담은 self.current_proverb에 저장
         else:
-            messagebox.showinfo("끝", "모든 문제를 완료하였습니다.")
+            messagebox.showinfo(
+                "끝",
+                f"모든 문제를 완료하였습니다. 최종 점수: {self.score.get_score()}점",
+            )
 
     def show_next_question(self):
         self.current_index += 1
@@ -62,7 +67,10 @@ class QuizGame:
             self.show_image()
             self.timer.reset_timer()
         else:
-            messagebox.showinfo("끝", "모든 문제를 완료하였습니다.")
+            messagebox.showinfo(
+                "끝",
+                f"모든 문제를 완료하였습니다. 최종 점수: {self.score.get_score()}점",
+            )
             self.root.quit()
 
     def check_answer(self):
@@ -72,11 +80,15 @@ class QuizGame:
         correct_answer = self.current_proverb
 
         if user_answer == correct_answer:
-            messagebox.showinfo("정답", "정답입니다!")
+            self.score.increase()  # 정답일 경우 점수 증가
+            messagebox.showinfo(
+                "정답", f"정답입니다! 현재 점수: {self.score.get_score()}점"
+            )
             self.show_next_question()
         else:
             messagebox.showerror(
-                "오답", f"틀렸습니다. 정답은 '{correct_answer}' 입니다."
+                "오답",
+                f"틀렸습니다. 정답은 '{correct_answer}' 입니다. 현재 점수: {self.score.get_score()}점",
             )
 
     def check_answer_event(self, event):

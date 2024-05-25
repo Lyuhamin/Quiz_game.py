@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 
 class Timer:
-    def __init__(self, character, on_timeout, time_limit=15):
+    def __init__(self, character, on_timeout, time_limit=20):
         self.character = character
         self.time_limit = time_limit
         self.time_left = time_limit
