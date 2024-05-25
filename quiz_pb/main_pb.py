@@ -17,7 +17,7 @@ class QuizGame:
             ("호랑이도 제말하면 온다", "호랑이도 제말하면 온다.jpeg"),
             ("개천에서 용난다", "개천에서 용난다.jpeg"),
         ]
-        self.current_index = 0
+        self.current_index = 0  # 현재문제의 index를 저장
 
         self.image_label = tk.Label(root)
         self.image_label.pack(pady=10)
@@ -37,7 +37,7 @@ class QuizGame:
         self.check_button.pack(pady=10)
 
         self.timer = Timer(root, self.show_next_question)
-        self.show_image()
+        self.show_image()  # 현재 index에 해당하는 속담 표시
         self.timer.start_timer()
 
     def show_image(self):
@@ -50,7 +50,7 @@ class QuizGame:
             self.photo = ImageTk.PhotoImage(image)
             self.image_label.configure(image=self.photo)
 
-            self.current_proverb = proverb
+            self.current_proverb = proverb  # 현재 속담은 self.current_proverb에 저장
         else:
             messagebox.showinfo("끝", "모든 문제를 완료하였습니다.")
 
@@ -64,6 +64,8 @@ class QuizGame:
             self.root.quit()
 
     def check_answer(self):
+        # 사용자가 입력한 정답을 확인하고, 정답일 경우 다음 문제로 넘어감
+
         user_answer = self.answer_entry.get()
         correct_answer = self.current_proverb
 
